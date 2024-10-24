@@ -1,0 +1,1 @@
+php artisan make:model Shop --all && php artisan make:model Category --all && php artisan make:model Producer --all && php artisan make:model Product --all && php artisan make:model GoldPrice --all && php artisan make:model Trader --all && php artisan make:model Order --all && php artisan make:model Invoice --all && php artisan make:model Value --all
