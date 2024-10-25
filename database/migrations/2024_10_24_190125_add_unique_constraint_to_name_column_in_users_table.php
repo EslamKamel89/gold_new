@@ -9,11 +9,9 @@ return new class extends Migration {
 	 * Run the migrations.
 	 */
 	public function up(): void {
-		Schema::create( 'producers', function (Blueprint $table) {
-			$table->id();
-			$table->string( 'name' )->unique();
-			$table->softDeletes();
-			$table->timestamps();
+		Schema::table( 'users', function (Blueprint $table) {
+			//
+			$table->unique( 'name' );
 		} );
 	}
 
@@ -21,6 +19,8 @@ return new class extends Migration {
 	 * Reverse the migrations.
 	 */
 	public function down(): void {
-		Schema::dropIfExists( 'producers' );
+		Schema::table( 'users', function (Blueprint $table) {
+			//
+		} );
 	}
 };

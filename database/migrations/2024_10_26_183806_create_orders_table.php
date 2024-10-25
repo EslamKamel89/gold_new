@@ -9,9 +9,12 @@ return new class extends Migration {
 	 * Run the migrations.
 	 */
 	public function up(): void {
-		Schema::create( 'producers', function (Blueprint $table) {
+		Schema::create( 'orders', function (Blueprint $table) {
 			$table->id();
-			$table->string( 'name' )->unique();
+			$table->foreignId( 'product_id' )->nullable()->constrained()->nullOnDelete();
+			$table->foreignId( 'invoice_id' )->nullable()->constrained()->nullOnDelete();
+			$table->float( 'unit_price' );
+			$table->text( 'description' )->nullable();
 			$table->softDeletes();
 			$table->timestamps();
 		} );
@@ -21,6 +24,6 @@ return new class extends Migration {
 	 * Reverse the migrations.
 	 */
 	public function down(): void {
-		Schema::dropIfExists( 'producers' );
+		Schema::dropIfExists( 'orders' );
 	}
 };
