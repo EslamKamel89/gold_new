@@ -43,6 +43,12 @@ class ProductController extends Controller {
 		if ( request( 'goldPriceId' ) ) {
 			$productQuery->where( 'gold_price_id', request( 'goldPriceId' ) );
 		}
+		if ( request( 'minWeight' ) ) {
+			$productQuery->where( 'weight', '>=', request( 'minWeight' ) );
+		}
+		if ( request( 'maxWeight' ) ) {
+			$productQuery->where( 'weight', '<=', request( 'maxWeight' ) );
+		}
 
 		$products = $productQuery->paginate( request()->get( 'limit' ) ?? 10 );
 
@@ -65,8 +71,8 @@ class ProductController extends Controller {
 			// 'invoice_id' => 'sometimes|exists:invoices,id',
 			'gold_price_id' => 'required|exists:gold_prices,id',
 			'name' => [ 
-				'required',
-				Rule::unique( 'products', 'name' ),
+				'sometimes',
+				// Rule::unique( 'products', 'name' ),
 				'min:3',
 				'max:255'
 			],
@@ -89,8 +95,6 @@ class ProductController extends Controller {
 	 * Display the specified resource.
 	 */
 	public function show( int $id ) {
-
-
 		$product = QueryBuilder::for( Product::class)
 			->allowedIncludes( [ 'category', 'producer', 'trader', 'shop', 'invoice', 'goldPrice',] )
 			->where( 'id', $id )
@@ -120,7 +124,7 @@ class ProductController extends Controller {
 			'gold_price_id' => 'sometimes|exists:gold_prices,id',
 			'name' => [ 
 				'sometimes',
-				Rule::unique( 'products', 'name' )->ignore( $product->id ),
+				// Rule::unique( 'products', 'name' )->ignore( $product->id ),
 				'min:3',
 				'max:255'
 			],

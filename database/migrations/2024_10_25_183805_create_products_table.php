@@ -18,10 +18,10 @@ return new class extends Migration {
 			$table->foreignId( 'invoice_id' )->nullable()->constrained()->nullOnDelete();
 			$table->foreignId( 'gold_price_id' )->nullable()->constrained( 'gold_prices' )->nullOnDelete();
 			$table->string( 'code' )->unique();
-			$table->string( 'name' )->unique();
-			$table->float( 'price' );
+			$table->string( 'name' )->nullable();
+			$table->float( 'price' )->nullable();
 			$table->float( 'weight' );
-			$table->float( 'manufacture_cost' );
+			$table->float( 'manufacture_cost' )->nullable();
 			$table->boolean( 'sold' )->default( false );
 			$table->softDeletes();
 			$table->timestamps();

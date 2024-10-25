@@ -1,0 +1,44 @@
+// Category -----------------------------------------------------------
+viewAll >>
+    ->allowedFilters( [ 'name' ] )
+view    >>
+    ->allowedIncludes( [ 'products' ] )
+
+// Producer -----------------------------------------------------------
+viewAll >>
+    ->allowedFilters( [ 'name' ] )
+view    >>
+    ->allowedIncludes( [ 'products' ] )
+
+// Product -----------------------------------------------------------
+viewAll >>
+    ->allowedIncludes( [ 'category', 'producer', 'trader', 'shop', 'invoice', 'goldPrice',] )
+    ->allowedSorts( 'name', 'price', 'created_at' )
+    ->allowedFilters( [ 'name', 'sold', 'code' ] );
+    request( 'categoryId' )
+    request( 'producerId' )
+    request( 'traderId' )
+    request( 'shopId' )
+    request( 'invoiceId' )
+    request( 'goldPriceId' )
+    request( 'minWeight' )
+    request( 'maxWeight' )
+view    >>
+    ->allowedIncludes( [ 'category', 'producer', 'trader', 'shop', 'invoice', 'goldPrice',] )
+
+// GoldPrice -----------------------------------------------------------
+viewAll >>
+    ->allowedSorts( 'price' )
+    ->allowedFilters( [ 'standard' ] );
+view    >>
+
+// Trader -----------------------------------------------------------
+viewAll >>
+<?php
+    ->allowedIncludes( [ 'products' ] )
+    ->allowedSorts( 'money_balance', 'gold_balance' )
+    ->allowedFilters( [ 'name', 'phone', 'address' ] );
+view    >>
+    ->allowedIncludes( [ 'products' ] )
+
+

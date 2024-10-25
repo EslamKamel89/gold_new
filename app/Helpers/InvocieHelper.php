@@ -9,7 +9,7 @@ class InvocieHelper {
 			$orders[ $k ]['quantity'] = count( $order['codes'] );
 			$orders[ $k ]['total_price'] = count( $order['codes'] ) * $order['unit_price'];
 		}
-		LogHelper::_( $orders );
+		// LogHelper::_( $orders );
 
 		return $orders;
 	}
@@ -17,7 +17,7 @@ class InvocieHelper {
 	public function getTotalInvoicePrice( array $orders ): float {
 		$invoicePrice = 0;
 		foreach ( $orders as $k => $order ) {
-			$invoicePrice += $order['total_price'];
+			$invoicePrice += $order['unit_price'];
 		}
 		return $invoicePrice;
 	}
