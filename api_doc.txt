@@ -23,6 +23,7 @@ viewAll >>
     request( 'goldPriceId' )
     request( 'minWeight' )
     request( 'maxWeight' )
+    request( 'code' )
 view    >>
     ->allowedIncludes( [ 'category', 'producer', 'trader', 'shop', 'invoice', 'goldPrice',] )
 
@@ -41,4 +42,27 @@ viewAll >>
 view    >>
     ->allowedIncludes( [ 'products' ] )
 
-
+// Order -----------------------------------------------------------
+viewAll >>
+<?php
+    ->allowedIncludes( [ 'product', 'invoice',] )
+    ->allowedSorts( 'unit_price',  'created_at' )
+    request( 'productId' )
+    request( 'invoiceId' )
+    request( 'minPrice' )
+    request( 'maxPrice' )
+    request ('udpatedOrDeleted' ) >> true or false (boolean)
+    request ('updated' ) >> true or false (boolean)
+    request ('deleted' ) >> true or false (boolean)
+view    >>
+    ->allowedIncludes( [ 'products' ] )
+update    >>
+    you could only update unit_price and it's required  .
+    you have to send shop_id to save the update_shop_id in the invoices table
+    product_id, invoice_id and  returned can't be updated
+    in order update i first soft delete the order and then create new order with the same attributes
+destroy  >>
+    only soft delete the order and you could see it in the index and show
+    you have to send shop_id to save the update_shop_id in the invoices table
+notes >>
+    the response for both the update and delete endpoints is the invoice after the changes is applied

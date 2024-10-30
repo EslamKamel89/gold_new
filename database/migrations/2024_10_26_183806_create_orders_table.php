@@ -14,6 +14,7 @@ return new class extends Migration {
 			$table->foreignId( 'product_id' )->nullable()->constrained()->nullOnDelete();
 			$table->foreignId( 'invoice_id' )->nullable()->constrained()->nullOnDelete();
 			$table->float( 'unit_price' );
+			$table->boolean( 'returned' )->default( false );
 			$table->text( 'description' )->nullable();
 			$table->softDeletes();
 			$table->timestamps();

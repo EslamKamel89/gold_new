@@ -49,6 +49,9 @@ class ProductController extends Controller {
 		if ( request( 'maxWeight' ) ) {
 			$productQuery->where( 'weight', '<=', request( 'maxWeight' ) );
 		}
+		if ( request( 'code' ) ) {
+			$productQuery->where( 'code', '=', request( 'code' ) );
+		}
 
 		$products = $productQuery->paginate( request()->get( 'limit' ) ?? 10 );
 
@@ -87,7 +90,12 @@ class ProductController extends Controller {
 			'manufacture_cost' => [ 'sometimes', 'numeric' ],
 
 		] );
+
 		$product = Product::create( $validated );
+		$traderGoldBalance = $product->trader->gold_balance;
+		$product->trader->update( [ 
+			'gold_balance' => $traderGoldBalance + $product->weight,
+		] );
 		return $this->success( new ProductResource( $product ) );//
 	}
 

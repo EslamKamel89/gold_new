@@ -16,7 +16,13 @@ class Order extends Model {
 		'product_id',
 		'invoice_id',
 		'description',
-		"unit_price"
+		"unit_price",
+		"returned"
+	];
+
+	//! casts
+	protected $casts = [ 
+		'returned' => 'boolean',
 	];
 
 	//! Relatioships

@@ -3,6 +3,7 @@
 use App\Helpers\ItemCountHelper;
 use App\Helpers\LogHelper;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProducerController;
@@ -38,8 +39,10 @@ Route::middleware( [ 'auth:sanctum' ] )->group( function () {
 	Route::apiResource( '/products', ProductController::class);
 	// Route::apiResource( '/items', ItemController::class);
 	Route::apiResource( '/gold-prices', GoldPriceController::class);
-	Route::apiResource( '/invoices', InvoiceController::class);
 	Route::apiResource( '/traders', TraderController::class);
+	Route::apiResource( '/invoices', InvoiceController::class)
+		->only( [ 'index', 'store', 'show' ] );
+	Route::apiResource( '/orders', OrderController::class);
 } );
 
 // Route::get( 'test', function () {

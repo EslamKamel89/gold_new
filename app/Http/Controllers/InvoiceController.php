@@ -61,6 +61,7 @@ class InvoiceController extends Controller {
 				$product = Product::find( $order["product_id"] );
 				$product->update( [ 
 					'sold' => true,
+					'invoice_id' => $invoice->id,
 				] );
 			}
 			return $this->success( new InvoiceResource( $invoice ), message: "Order Placed Successfully" );
@@ -83,14 +84,14 @@ class InvoiceController extends Controller {
 	/**
 	 * Update the specified resource in storage.
 	 */
-	public function update( Request $request, Invoice $invoice ) {
-		//
-	}
+	// public function update( Request $request, Invoice $invoice ) {
+
+	// }
 
 	/**
 	 * Remove the specified resource from storage.
 	 */
-	public function destroy( Invoice $invoice ) {
-		//
-	}
+	// public function destroy( Invoice $invoice ) {
+	//
+	// }
 }

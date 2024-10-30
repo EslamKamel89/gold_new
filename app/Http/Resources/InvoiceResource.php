@@ -18,7 +18,9 @@ class InvoiceResource extends JsonResource {
 			'userId' => $this->user_id,
 			'shopId' => $this->shop_id,
 			'totalPrice' => $this->total_price,
-			'manufactureCostGram' => $this->manufacture_cost_gram,
+			'manufactureCostGram18' => $this->manufacture_cost_gram_18,
+			'manufactureCostGram21' => $this->manufacture_cost_gram_21,
+			'manufactureCostGram24' => $this->manufacture_cost_gram_24,
 			'customerName' => $this->customer_name,
 			'customerPhone' => $this->customer_phone,
 			'quantity' => $this->quantity,
@@ -28,7 +30,7 @@ class InvoiceResource extends JsonResource {
 			'updatedAt' => $this->updated_at,
 			'products' => ProductResource::collection( $this->products ),
 			'orders' => OrderResource::collection(
-				Order::where( 'invoice_id', $this->id )->get()
+				Order::where( 'invoice_id', $this->id )->withTrashed()->get()
 			),
 			'invoiceCreator' => new UserResource( $this->invoiceCreator ),
 			'invoiceUpdater' => new UserResource( $this->invoiceUpdater ),

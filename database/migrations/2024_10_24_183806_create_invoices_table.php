@@ -14,7 +14,9 @@ return new class extends Migration {
 			$table->foreignId( 'user_id' )->nullable()->constrained()->nullOnDelete();
 			$table->foreignId( 'shop_id' )->nullable()->constrained()->nullOnDelete();
 			$table->float( 'total_price' );
-			$table->float( 'manufacture_cost_gram' );
+			$table->float( 'manufacture_cost_gram_18' )->nullable();
+			$table->float( 'manufacture_cost_gram_21' )->nullable();
+			$table->float( 'manufacture_cost_gram_24' )->nullable();
 			$table->string( 'customer_name' );
 			$table->string( 'customer_phone' );
 			$table->integer( 'quantity' );

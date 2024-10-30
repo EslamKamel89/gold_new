@@ -8,12 +8,16 @@ use Exception;
 trait InvoiceTrait {
 	public function validateInoviceData() {
 		$invoiceValidator = Validator::make(
-			request()->only( [ "shop_id", "manufacture_cost_gram", "customer_name", "customer_phone" ] ),
+			request()->only(
+				[ "shop_id", "manufacture_cost_gram", "customer_name", "customer_phone", 'manufacture_cost_gram_18', 'manufacture_cost_gram_21', 'manufacture_cost_gram_24',]
+			),
 			[ 
 				"shop_id" => [ "required", "exists:shops,id" ],
-				"manufacture_cost_gram" => [ "required", "numeric" ],
 				"customer_name" => [ "required", "max:255" ],
 				"customer_phone" => [ "required", "max:255" ],
+				'manufacture_cost_gram_18' => [ 'sometimes', 'numeric' ],
+				'manufacture_cost_gram_21' => [ 'sometimes', 'numeric' ],
+				'manufacture_cost_gram_24' => [ 'sometimes', 'numeric' ],
 			],
 		);
 		if ( $invoiceValidator->fails() ) {

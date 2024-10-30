@@ -17,10 +17,12 @@ class OrderResource extends JsonResource {
 			'productId' => $this->product_id,
 			'invoiceId' => $this->invoice_id,
 			'unitPrice' => $this->unit_price,
+			'returned' => $this->returned,
 			'product' => new ProductResource( $this->whenLoaded( 'product' ) ),
 			'invoice' => new InvoiceResource( $this->whenLoaded( 'invoice' ) ),
 			'createdAt' => $this->created_at,
 			'updatedAt' => $this->updated_at,
+			'deletedAt' => $this->deleted_at,
 		];
 	}
 }
