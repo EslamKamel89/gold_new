@@ -23,10 +23,14 @@ class InvoiceController extends Controller {
 	/**
 	 * Display a listing of the resource.
 	 */
-	public function index( Request $requesdt ) {
+	public function index( Request $request ) {
+		$query = Invoice::query();
+		if ( $request->only( 'shopId' ) ) {
+			$query->where( 'shop_id', $request->only( 'shopId' ) );
+		}
 		return $this->success(
 			InvoiceResource::collection(
-				Invoice::paginate( request()->get( 'limit' ) ?? 10 )
+				$query->paginate( request()->get( 'limit' ) ?? 10 )
 			)
 		);
 	}

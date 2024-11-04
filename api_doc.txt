@@ -42,6 +42,11 @@ viewAll >>
 view    >>
     ->allowedIncludes( [ 'products' ] )
 
+// Invoice -----------------------------------------------------------
+viewAll >>
+    request( 'shopId' )
+view    >>
+
 // Order -----------------------------------------------------------
 viewAll >>
 <?php

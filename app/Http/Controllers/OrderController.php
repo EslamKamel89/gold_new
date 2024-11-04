@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\LogHelper;
 use App\Http\Resources\InvoiceResource;
 use App\Http\Resources\OrderResource;
 use App\Models\Invoice;
@@ -88,8 +89,19 @@ class OrderController extends Controller {
 	/**
 	 * Update the specified resource in storage.
 	 */
-	public function update( Request $request, Order $order ) {
+	public function update( Request $request, int $id ) {
+		$order = Order::withTrashed()->find( $id );
+		if ( ! $order ) {
+			throw new NotFoundHttpException();
+		}
 		Gate::authorize( 'update', $order );
+		if ( $order->returned ) {
+			return $this->failure( 'You are trying to update an order that was previously returned' );
+		}
+		if ( $order->deleted_at ) {
+			return $this->failure( 'You are trying to update an order that was previously updated' );
+		}
+
 		$validated = $request->validate( [ 
 			'unit_price' => 'required|numeric',
 			'shop_id' => 'required|exists:shops,id'
@@ -105,14 +117,28 @@ class OrderController extends Controller {
 			'update_shop_id' => $validated['shop_id'],
 		] );
 		$order->delete();
+		$totalPrice = Order::where( 'invoice_id', $order->invoice_id )->sum( 'unit_price' );
+		$newOrder->invoice->update( [ 
+			'total_price' => $totalPrice,
+		] );
 		return $this->success( new InvoiceResource( Invoice::find( $newOrder->invoice_id ) ) );
 	}
 
 	/**
 	 * Remove the specified resource from storage.
 	 */
-	public function destroy( Order $order ) {
+	public function destroy( int $id ) {
+		$order = Order::withTrashed()->find( $id );
+		if ( ! $order ) {
+			throw new NotFoundHttpException();
+		}
 		Gate::authorize( 'delete', $order );
+		if ( $order->returned ) {
+			return $this->failure( 'You are trying to delete an order that was previously returned' );
+		}
+		if ( $order->deleted_at ) {
+			return $this->failure( 'You are trying to delete an order that was previously updated' );
+		}
 		$validated = request()->validate( [ 
 			'shop_id' => 'required|exists:shops,id'
 		] );
@@ -128,6 +154,10 @@ class OrderController extends Controller {
 			'update_shop_id' => $validated['shop_id'],
 		] );
 		$order->delete();
+		$totalPrice = Order::where( 'invoice_id', $order->invoice_id )->sum( 'unit_price' );
+		$order->invoice->update( [ 
+			'total_price' => $totalPrice,
+		] );
 		return $this->success(
 			new InvoiceResource( Invoice::find( $order->invoice_id ) )
 			, message: 'Order Deleted Successfully'

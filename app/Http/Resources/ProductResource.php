@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Invoice;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -22,10 +23,10 @@ class ProductResource extends JsonResource {
 			'manufactureCost' => $this->manufacture_cost,
 			'category' => new CategoryResource( $this->whenLoaded( 'category' ) ),
 			'producer' => new ProducerResource( $this->whenLoaded( 'producer' ) ),
-			'trader' => new ProducerResource( $this->whenLoaded( 'trader' ) ),
-			'shop' => new ProducerResource( $this->whenLoaded( 'shop' ) ),
-			'invoice' => new ProducerResource( $this->whenLoaded( 'invoice' ) ),
-			'goldPrice' => new ProducerResource( $this->whenLoaded( 'goldPrice' ) ),
+			'trader' => new TraderResource( $this->whenLoaded( 'trader' ) ),
+			'shop' => new ShopResource( $this->whenLoaded( 'shop' ) ),
+			'invoice' => new InvoiceResource( $this->whenLoaded( 'invoice' ) ),
+			'goldPrice' => new GoldPriceResource( $this->whenLoaded( 'goldPrice' ) ),
 			'createdAt' => $this->created_at,
 			'updatedAt' => $this->updated_at,
 		];

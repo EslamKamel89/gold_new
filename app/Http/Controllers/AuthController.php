@@ -31,7 +31,7 @@ class AuthController extends Controller {
 	public function register( Request $request ) {
 		$validated = $request->validate( [ 
 			'name' => 'required|min:3|max:255',
-			'email' => 'required|email|max:255|unique:users,email',
+			'email' => 'sometimes|email|max:255|unique:users,email',
 			'password' => 'required|max:255',
 		] );
 
@@ -39,7 +39,7 @@ class AuthController extends Controller {
 
 
 
-		$token = $user->createToken( $request->email )->plainTextToken;
+		$token = $user->createToken( $request->name )->plainTextToken;
 		return $this->success( [ 'token' => $token ], message: 'Register Successful' );
 	}
 	public function forgetPassword( Request $request ) {

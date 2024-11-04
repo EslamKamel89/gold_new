@@ -102,16 +102,9 @@ class DatabaseSeeder extends Seeder {
 		"عقد الكنز",
 	];
 	protected $fakeGoldPriceStandards = [ 
-		"  24 قيراط",
-		"  22 قيراط",
-		"  21 قيراط",
-		"  20 قيراط",
-		"  18 قيراط",
-		"  16 قيراط",
-		"  14 قيراط",
-		"  12 قيراط",
-		"  10 قيراط",
-		"  9 قيراط",
+		"24 عيار",
+		"21 عيار",
+		"18 عيار",
 	];
 	protected $fakeTraderName = [ 
 		"أحمد العلي",
@@ -178,7 +171,7 @@ class DatabaseSeeder extends Seeder {
 				'name' => $this->fakeShopNames[ $i ],
 			] );
 		}
-		for ( $i = 0; $i < 10; $i++ ) {
+		for ( $i = 0; $i < count( $this->fakeGoldPriceStandards ); $i++ ) {
 			GoldPrice::create( [ 
 				'standard' => $this->fakeGoldPriceStandards[ $i ],
 				'description' => $this->fakeDescription,
@@ -205,7 +198,7 @@ class DatabaseSeeder extends Seeder {
 				'trader_id' => $i + 1,
 				'shop_id' => fake()->randomElement( [ 1, 2, 3 ] ),
 				// 'invoice_id'=>$this->,
-				'gold_price_id' => fake()->randomElement( [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] ),
+				'gold_price_id' => fake()->randomElement( [ 1, 2, 3 ] ),
 				'code' => "code $i",
 				'name' => $this->fakeProductNames[ $i ],
 				'price' => fake()->numberBetween( 10000, 15000 ),

@@ -18,6 +18,7 @@ class OrderResource extends JsonResource {
 			'invoiceId' => $this->invoice_id,
 			'unitPrice' => $this->unit_price,
 			'returned' => $this->returned,
+			'code' => $this->product->code,
 			'product' => new ProductResource( $this->whenLoaded( 'product' ) ),
 			'invoice' => new InvoiceResource( $this->whenLoaded( 'invoice' ) ),
 			'createdAt' => $this->created_at,
