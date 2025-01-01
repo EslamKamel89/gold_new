@@ -24,7 +24,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\" : \"admin\" , \r\n    \"password\" :\"123456789\"\r\n}",
+							"raw": "{\r\n    \"name\" : \"eslam\" , \r\n    \"password\" :\"123456789\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -58,7 +58,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\" : \"admin\" , \r\n    \"email\" : \"admin@gmail.com\" , \r\n    \"password\" : \"123456789\" , \r\n    \"role\" : \"admin\"\r\n}",
+							"raw": "{\r\n    \"name\" : \"eslam\" , \r\n    // \"email\" : \"admin@gmail.com\" , \r\n    \"password\" : \"123456789\" , \r\n    \"role\" : \"admin\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -537,7 +537,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/products?limit=5&page=1&include=category,producer&sort=created_at&code=code 0",
+							"raw": "{{baseUrl}}/products?limit=5&page=1&include=invoice&sort=created_at&invoiceId=1",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -555,7 +555,7 @@
 								},
 								{
 									"key": "include",
-									"value": "category,producer"
+									"value": "invoice"
 								},
 								{
 									"key": "sort",
@@ -593,7 +593,12 @@
 								},
 								{
 									"key": "code",
-									"value": "code 0"
+									"value": "code 0",
+									"disabled": true
+								},
+								{
+									"key": "invoiceId",
+									"value": "1"
 								}
 							]
 						}
@@ -1221,13 +1226,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/orders/2?shop_id=1",
+							"raw": "{{baseUrl}}/orders/3?shop_id=1",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"orders",
-								"2"
+								"3"
 							],
 							"query": [
 								{
@@ -1355,7 +1360,7 @@
 				"packages": {},
 				"exec": [
 					"pm.request.headers.add({key: 'Accept', value: 'application/json' })\r",
-					"pm.request.headers.add({key: 'Authorization', value: 'Bearer vPTnOy3iPminuEHTPZKNnOiMnE5JVHxYF9W0G1Rh569dbb61' })"
+					"pm.request.headers.add({key: 'Authorization', value: 'Bearer 8nwkj4EHr8ne2XIHi4XyQVYnX186mTN3KEzv0j0u96101636' })"
 				]
 			}
 		},

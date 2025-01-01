@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\InvoiceResource;
 use App\Models\Invoice;
 use App\Models\Product;
+use App\Models\User;
 use App\Traits\ApiResponse;
 use App\Traits\InvoiceTrait;
 use Illuminate\Http\Request;
@@ -30,7 +31,9 @@ class InvoiceController extends Controller {
 		}
 		return $this->success(
 			InvoiceResource::collection(
-				$query->paginate( request()->get( 'limit' ) ?? 10 )
+				$query->with( [ 'products.category',
+					'products.producer',
+					'products.goldPrice',] )->paginate( request()->get( 'limit' ) ?? 10 )
 			)
 		);
 	}
@@ -66,6 +69,11 @@ class InvoiceController extends Controller {
 				$product->update( [ 
 					'sold' => true,
 					'invoice_id' => $invoice->id,
+				] );
+				$invoice->load( [ 
+					'products.category',
+					'products.producer',
+					'products.goldPrice',
 				] );
 			}
 			return $this->success( new InvoiceResource( $invoice ), message: "Order Placed Successfully" );

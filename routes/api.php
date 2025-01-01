@@ -43,6 +43,19 @@ Route::middleware( [ 'auth:sanctum' ] )->group( function () {
 	Route::apiResource( '/invoices', InvoiceController::class)
 		->only( [ 'index', 'store', 'show' ] );
 	Route::apiResource( '/orders', OrderController::class);
+	Route::get( '/delete-db', function () {
+		try {
+			DB::statement( 'SET FOREIGN_KEY_CHECKS=0;' );
+			DB::table( 'orders' )->truncate();
+			DB::table( 'invoices' )->truncate();
+			DB::table( 'products' )->truncate();
+			DB::statement( 'SET FOREIGN_KEY_CHECKS=1;' );
+			return response()->json( [ 'message' => 'products , invoices and orders table are deleted' ] );
+		} catch (Exception $e) {
+			return response()->json( [ 'message' => $e->getMessage() ] );
+		}
+
+	} );
 } );
 
 // Route::get( 'test', function () {

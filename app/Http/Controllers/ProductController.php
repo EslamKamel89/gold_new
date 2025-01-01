@@ -24,7 +24,7 @@ class ProductController extends Controller {
 			->allowedIncludes( [ 'category', 'producer', 'trader', 'shop', 'invoice', 'goldPrice',] )
 			->defaultSort( '-created_at' )
 			->allowedSorts( 'name', 'price', 'created_at' )
-			->allowedFilters( [ 'name', 'sold', 'code' ] );
+			->allowedFilters( [ 'name', 'code' ] );
 		if ( request( 'categoryId' ) ) {
 			$productQuery->where( 'category_id', request( 'categoryId' ) );
 		}
@@ -51,6 +51,9 @@ class ProductController extends Controller {
 		}
 		if ( request( 'code' ) ) {
 			$productQuery->where( 'code', '=', request( 'code' ) );
+		}
+		if ( request( 'sold' ) ) {
+			$productQuery->where( 'sold', request( 'sold' ) );
 		}
 
 		$products = $productQuery->paginate( request()->get( 'limit' ) ?? 10 );
