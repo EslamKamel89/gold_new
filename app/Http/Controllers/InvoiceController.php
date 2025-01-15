@@ -33,7 +33,7 @@ class InvoiceController extends Controller {
 			InvoiceResource::collection(
 				$query->with( [ 'products.category',
 					'products.producer',
-					'products.goldPrice',] )->paginate( request()->get( 'limit' ) ?? 10 )
+					'products.goldPrice',] )->latest()->paginate( request()->get( 'limit' ) ?? 10 )
 			)
 		);
 	}

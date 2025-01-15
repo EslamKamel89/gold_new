@@ -52,8 +52,10 @@ class ProductController extends Controller {
 		if ( request( 'code' ) ) {
 			$productQuery->where( 'code', '=', request( 'code' ) );
 		}
-		if ( request( 'sold' ) ) {
-			$productQuery->where( 'sold', request( 'sold' ) );
+		if ( request()->has( 'sold' ) ) {
+			if ( request( 'sold' ) == 1 || request( 'sold' ) == 0 ) {
+				$productQuery->where( 'sold', request( 'sold' ) );
+			}
 		}
 
 		$products = $productQuery->paginate( request()->get( 'limit' ) ?? 10 );
@@ -70,9 +72,9 @@ class ProductController extends Controller {
 	public function store( Request $request ) {
 		Gate::authorize( 'create', Product::class);
 		$validated = $request->validate( [ 
-			'category_id' => 'required|exists:categories,id',
-			'producer_id' => 'required|exists:producers,id',
-			'trader_id' => 'required|exists:traders,id',
+			'category_id' => 'sometimes|exists:categories,id',
+			'producer_id' => 'sometimes|exists:producers,id',
+			'trader_id' => 'sometimes|exists:traders,id',
 			'shop_id' => 'required|exists:shops,id',
 			// 'invoice_id' => 'sometimes|exists:invoices,id',
 			'gold_price_id' => 'required|exists:gold_prices,id',

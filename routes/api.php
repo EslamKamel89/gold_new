@@ -3,7 +3,9 @@
 use App\Helpers\ItemCountHelper;
 use App\Helpers\LogHelper;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BrokenController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProducerController;
@@ -43,12 +45,17 @@ Route::middleware( [ 'auth:sanctum' ] )->group( function () {
 	Route::apiResource( '/invoices', InvoiceController::class)
 		->only( [ 'index', 'store', 'show' ] );
 	Route::apiResource( '/orders', OrderController::class);
+	Route::apiResource( '/brokens', BrokenController::class);
+	Route::get( '/reports/daily-report', [ ReportController::class, 'dailyReport' ] );
 	Route::get( '/delete-db', function () {
 		try {
 			DB::statement( 'SET FOREIGN_KEY_CHECKS=0;' );
 			DB::table( 'orders' )->truncate();
 			DB::table( 'invoices' )->truncate();
 			DB::table( 'products' )->truncate();
+			DB::table( 'traders' )->truncate();
+			DB::table( 'producers' )->truncate();
+			DB::table( 'categories' )->truncate();
 			DB::statement( 'SET FOREIGN_KEY_CHECKS=1;' );
 			return response()->json( [ 'message' => 'products , invoices and orders table are deleted' ] );
 		} catch (Exception $e) {

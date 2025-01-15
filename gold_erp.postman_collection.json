@@ -24,7 +24,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\" : \"eslam\" , \r\n    \"password\" :\"123456789\"\r\n}",
+							"raw": "{\r\n    \"name\" : \"admin\" , \r\n    \"password\" :\"123456789\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -203,6 +203,126 @@
 							"path": [
 								"shops",
 								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Broken",
+			"item": [
+				{
+					"name": "viewAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/brokens",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"brokens"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "view",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/brokens/2",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"brokens",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"price\": 5255,\r\n    \"standard\": \"gold standard\",\r\n    \"type\": \"ddsfdsfdsffdf\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/brokens/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"brokens",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"price\":5255,\r\n\"standard\":\"dfdfd\",\r\n\"type\":\"dfdf\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/brokens",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"brokens"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/brokens/3",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"brokens",
+								"3"
 							]
 						}
 					},
@@ -537,7 +657,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/products?limit=5&page=1&include=invoice&sort=created_at&invoiceId=1",
+							"raw": "{{baseUrl}}/products?limit=5&page=1",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -555,11 +675,13 @@
 								},
 								{
 									"key": "include",
-									"value": "invoice"
+									"value": "invoice",
+									"disabled": true
 								},
 								{
 									"key": "sort",
-									"value": "created_at"
+									"value": "created_at",
+									"disabled": true
 								},
 								{
 									"key": "filter[name]",
@@ -598,7 +720,13 @@
 								},
 								{
 									"key": "invoiceId",
-									"value": "1"
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "sold",
+									"value": "0",
+									"disabled": true
 								}
 							]
 						}
@@ -669,7 +797,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n   \t\t\"category_id\":1,\r\n\t\t\"producer_id\":1,\r\n\t\t\"trader_id\":15,\r\n\t\t\"shop_id\":1,\r\n\t\t\"gold_price_id\" : 1,\r\n\t\t\"code\" : \"dfdf\",\r\n\t\t\"name\" : \"dfdf\",\r\n\t\t\"price\" : 2154.015,\r\n\t\t\"weight\" :10000,\r\n\t\t\"manufacture_cost\" : 545.5445,\r\n\t\t\"sold\" : false\r\n\r\n\r\n}",
+							"raw": "{\r\n   \t\t\"category_id\":1,\r\n\t\t\"producer_id\":1,\r\n\t\t\"trader_id\":15,\r\n\t\t\"shop_id\":1,\r\n\t\t\"gold_price_id\" : 1,\r\n\t\t\"code\" : \"dfdff\",\r\n\t\t\"name\" : \"dfdff\",\r\n\t\t\"price\" : 2154.015,\r\n\t\t\"weight\" :10000,\r\n\t\t\"manufacture_cost\" : 545.5445,\r\n\t\t\"sold\" : false\r\n\r\n\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1256,7 +1384,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"shop_id\": 1,\r\n    \"manufacture_cost_gram\": 4100,\r\n    \"manufacture_cost_gram_18\": 4105,\r\n    \"manufacture_cost_gram_21\": 4105,\r\n    \"manufacture_cost_gram_24\": 4105,\r\n    \"customer_name\": \"Eslam Ahmed Kamel\",\r\n    \"customer_phone\": \"01020504470\",\r\n    \"orders\": [\r\n        {\r\n            \"product_id\": 1,\r\n            \"unit_price\": 2000,\r\n            \"description\": \"some description\"\r\n        },\r\n        {\r\n            \"product_id\": 2,\r\n            \"unit_price\": 2000,\r\n            \"description\": \"some description\"\r\n        }\r\n    ]\r\n}",
+							"raw": "{\r\n    \"shop_id\": 1,\r\n    \"manufacture_cost_gram\": 4100,\r\n    \"manufacture_cost_gram_18\": 4105,\r\n    \"manufacture_cost_gram_21\": 4105,\r\n    \"manufacture_cost_gram_24\": 4105,\r\n    \"customer_name\": \"Eslam Ahmed Kamel\",\r\n    \"customer_phone\": \"01020504470\",\r\n    \"orders\": [\r\n        {\r\n            \"product_id\": 5,\r\n            \"unit_price\": 2000,\r\n            \"description\": \"some description\"\r\n        },\r\n        {\r\n            \"product_id\": 6,\r\n            \"unit_price\": 2000,\r\n            \"description\": \"some description\"\r\n        }\r\n    ]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1308,6 +1436,11 @@
 								{
 									"key": "limit",
 									"value": "5"
+								},
+								{
+									"key": "shopId",
+									"value": "2",
+									"disabled": true
 								}
 							]
 						}
@@ -1335,17 +1468,86 @@
 			]
 		},
 		{
+			"name": "dailyReport",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/reports/daily-report?date=2025-1-2&shopId=3",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"reports",
+						"daily-report"
+					],
+					"query": [
+						{
+							"key": "date",
+							"value": "2025-1-2"
+						},
+						{
+							"key": "shopId",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "test",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{baseUrl}}/test",
+					"raw": "http://gold.islamdev.com/api/delete-db",
+					"protocol": "http",
 					"host": [
-						"{{baseUrl}}"
+						"gold",
+						"islamdev",
+						"com"
 					],
 					"path": [
-						"test"
+						"api",
+						"delete-db"
+					],
+					"query": [
+						{
+							"key": "include",
+							"value": "category,producer,trader,shop,goldPrice",
+							"disabled": true
+						},
+						{
+							"key": "limit",
+							"value": "20",
+							"disabled": true
+						},
+						{
+							"key": "page",
+							"value": "1",
+							"disabled": true
+						},
+						{
+							"key": "shopId",
+							"value": "0",
+							"disabled": true
+						},
+						{
+							"key": "minWeight",
+							"value": null,
+							"disabled": true
+						},
+						{
+							"key": "maxWeight",
+							"value": null,
+							"disabled": true
+						},
+						{
+							"key": "code",
+							"value": "",
+							"disabled": true
+						}
 					]
 				}
 			},
@@ -1360,7 +1562,7 @@
 				"packages": {},
 				"exec": [
 					"pm.request.headers.add({key: 'Accept', value: 'application/json' })\r",
-					"pm.request.headers.add({key: 'Authorization', value: 'Bearer 8nwkj4EHr8ne2XIHi4XyQVYnX186mTN3KEzv0j0u96101636' })"
+					"pm.request.headers.add({key: 'Authorization', value: 'Bearer JLXsyqVyJf6U0quX3Ol7TDANfXR7cAj49th7qT566c4557ea' })"
 				]
 			}
 		},
