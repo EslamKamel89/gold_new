@@ -19,7 +19,11 @@ class BrokenController extends Controller {
 	use ApiResponse;
 	public function index() {
 
-		$brokens = Broken::paginate( request()->get( 'limit' ) ?? 10 );
+		$brokens = QueryBuilder::for( Broken::class)
+			->defaultSort( '-created_at' )
+			->allowedSorts( 'created_at', 'seller', 'weight', 'price', 'standard', )
+			->with( [ 'category' ] )
+			->paginate( request()->get( 'limit' ) ?? 10 );
 
 		return $this->success(
 			BrokenResource::collection( $brokens ),
@@ -33,6 +37,7 @@ class BrokenController extends Controller {
 	public function store( Request $request ) {
 
 		$validated = $request->validate( [ 
+			'category_id' => 'sometimes|exists:categories,id',
 			'seller' => 'sometimes|max:255',
 			'weight' => 'sometimes|numeric',
 			'price' => 'sometimes|numeric',
@@ -41,6 +46,7 @@ class BrokenController extends Controller {
 
 		] );
 		$broken = Broken::create( $validated );
+		$broken->load( [ 'category' ] );
 		return $this->success( new BrokenResource( $broken ) );//
 	}
 
@@ -53,6 +59,7 @@ class BrokenController extends Controller {
 		if ( ! $broken ) {
 			throw new NotFoundHttpException();
 		}
+		$broken->load( [ 'category' ] );
 
 		return $this->success(
 			new BrokenResource( $broken ),
@@ -65,6 +72,7 @@ class BrokenController extends Controller {
 	public function update( Request $request, Broken $broken ) {
 
 		$validated = $request->validate( [ 
+			'category_id' => 'sometimes|exists:categories,id',
 			'seller' => 'sometimes|max:255',
 			'weight' => 'sometimes|numeric',
 			'price' => 'sometimes|numeric',
@@ -72,6 +80,7 @@ class BrokenController extends Controller {
 			'type' => 'sometimes|max:255',
 		] );
 		$broken->update( $validated );
+		$broken->load( [ 'category' ] );
 		return $this->success( new BrokenResource( $broken ) );//
 	}
 

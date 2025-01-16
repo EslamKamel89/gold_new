@@ -56,8 +56,9 @@ Route::middleware( [ 'auth:sanctum' ] )->group( function () {
 			DB::table( 'traders' )->truncate();
 			DB::table( 'producers' )->truncate();
 			DB::table( 'categories' )->truncate();
+			DB::table( 'brokens' )->truncate();
 			DB::statement( 'SET FOREIGN_KEY_CHECKS=1;' );
-			return response()->json( [ 'message' => 'products , invoices and orders table are deleted' ] );
+			return response()->json( [ 'message' => 'products , invoices , traders , producers , categories  , brokens and orders table are deleted' ] );
 		} catch (Exception $e) {
 			return response()->json( [ 'message' => $e->getMessage() ] );
 		}

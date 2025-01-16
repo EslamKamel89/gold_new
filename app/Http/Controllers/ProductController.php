@@ -81,7 +81,7 @@ class ProductController extends Controller {
 			'name' => [ 
 				'sometimes',
 				// Rule::unique( 'products', 'name' ),
-				'min:3',
+
 				'max:255'
 			],
 			'code' => [ 
@@ -97,10 +97,12 @@ class ProductController extends Controller {
 		] );
 
 		$product = Product::create( $validated );
-		$traderGoldBalance = $product->trader->gold_balance;
-		$product->trader->update( [ 
-			'gold_balance' => $traderGoldBalance + $product->weight,
-		] );
+		if ( $product->trader ) {
+			$traderGoldBalance = $product->trader->gold_balance;
+			$product->trader->update( [ 
+				'gold_balance' => $traderGoldBalance + $product->weight,
+			] );
+		}
 		return $this->success( new ProductResource( $product ) );//
 	}
 
@@ -138,7 +140,6 @@ class ProductController extends Controller {
 			'name' => [ 
 				'sometimes',
 				// Rule::unique( 'products', 'name' )->ignore( $product->id ),
-				'min:3',
 				'max:255'
 			],
 			'code' => [ 

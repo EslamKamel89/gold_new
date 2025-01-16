@@ -11,6 +11,7 @@ return new class extends Migration {
 	public function up(): void {
 		Schema::create( 'brokens', function (Blueprint $table) {
 			$table->id();
+			$table->foreignId( 'category_id' )->nullable()->constrained()->nullOnDelete();//!
 			$table->string( 'seller' )->nullable();
 			$table->float( 'weight' )->nullable();
 			$table->float( 'price' )->nullable();
